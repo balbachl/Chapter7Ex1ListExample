@@ -8,23 +8,19 @@ namespace MembershipList
             List<string> members = new List<string> { "Frank Furter", "Cookie Crumb", "Sassy Frass", "Happy Jack" };
             string? name = String.Empty;
             string[] nameArr;
-            int? menu = 0;
-
-            Console.WriteLine("Please make a selection from the menu");
-            Console.WriteLine("1. Print sorted list\n2. Add to List\n3. Delete List\n4. Quit");
-            menu = int.Parse(Console.ReadLine());
-            while (menu != 4)
+            int choice = menu();
+            while (choice != 4)
             {
-                if (menu == 1)
+                if (choice == 1)
                 {
                     printList(members);
                 }
-                else if (menu == 2)
+                else if (choice == 2)
                 {
                     nameArr = addList();
                     members.AddRange(nameArr);
                 }
-                else if (menu == 3)
+                else if (choice == 3)
                 {
                     Console.Write("Enter the name of the person you want removed from the list: ");
                     name = Console.ReadLine();
@@ -36,11 +32,21 @@ namespace MembershipList
                     else
                         Console.WriteLine("Sorry, that name does not exist, please try again");
                 }
-                Console.WriteLine("1. Print sorted list\n2. Add to List\n3. Delete List\n4. Quit");
-                menu = int.Parse(Console.ReadLine());
+                choice = menu();
             }
 
 
+        }
+        static int menu()
+        {
+            Console.WriteLine("1. Print sorted list\n2. Add to List\n3. Delete List\n4. Quit");
+            int selection = int.Parse(Console.ReadLine());
+            while(selection < 1 || selection > 4)
+            {
+                Console.WriteLine("Please enter a valid option");
+                selection = int.Parse(Console.ReadLine());
+            }
+            return selection;
         }
         static void printList(List<string> mem)
         {
